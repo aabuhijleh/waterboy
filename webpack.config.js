@@ -1,4 +1,4 @@
-const { resolve } = require("path");
+const path = require("path");
 const HtmlPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
@@ -61,7 +61,7 @@ const backgroundConfig = Object.assign({}, commonConfig, {
     index: "./src/background/index.ts",
   },
   output: {
-    path: resolve(__dirname, "dist", "background"),
+    path: path.resolve(__dirname, "dist", "background"),
     filename: "[name].js",
   },
   plugins: [...commonConfig.plugins],
@@ -72,7 +72,7 @@ const popupConfig = Object.assign({}, commonConfig, {
     index: "./src/popup/index.tsx",
   },
   output: {
-    path: resolve(__dirname, "dist", "popup"),
+    path: path.resolve(__dirname, "dist", "popup"),
     filename: "[name].js",
   },
   plugins: [
@@ -81,6 +81,17 @@ const popupConfig = Object.assign({}, commonConfig, {
       template: "src/popup/index.html",
     }),
   ],
+  devServer: {
+    contentBase: path.join(__dirname, "dist", "popup"),
+    port: 9000,
+    hot: true,
+    writeToDisk: true,
+    open: true,
+    overlay: {
+      warnings: true,
+      errors: true,
+    },
+  },
 });
 
 module.exports = [extensionConfig, backgroundConfig, popupConfig];

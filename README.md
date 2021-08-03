@@ -11,6 +11,9 @@ $ npm run dev
 
 # production build
 $ npm run build
+
+# run the popup in the browser using DevServer
+$ npm start
 ```
 
 ## 🛠️ Installation
